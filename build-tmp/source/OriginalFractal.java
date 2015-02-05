@@ -15,40 +15,66 @@ import java.io.IOException;
 public class OriginalFractal extends PApplet {
 
 //drawing parameters
-int detail = 30; //makes triangle more 'detailed' by recursive func
-int sizeSier = detail*10;
+public int detail = 30; //makes fractal more 'detailed' by recursive func
+public int sizeSier = detail*10;
 
 
 public void setup()
 {
 	background(100, 5);
-	size(sizeSier+sizeSier/4, sizeSier+sizeSier/4); //fits the triangle
+	size(sizeSier+sizeSier/4, sizeSier+sizeSier/4); //fits the fractal
 }
 
 public int count = 5;
 public void draw()
 {
-	sierpinski(sizeSier/8, sizeSier+sizeSier/8, sizeSier);
+	recursiveSquareBox(sizeSier/8, sizeSier/8, sizeSier);
 }
 
-public void mouseMoved()//optional
+public void mouseMoved() 
 {
-	//sizeSier++;
-	detail = mouseX/2;
+	// sizeSier++;
+	// detail = mouseX;
 }
 
-public void sierpinski(int x, int y, int len) //recursive func to draw sierpinski triangle
+public void recursiveSquareBox(int x, int y, int len) //recursive func to draw recursiveSquareBox
 {
+	// if (len > detail)
+	// {
+	// 	recursiveSquareBox(x+len/4, y+len/4, len/2);
+	// 	// recursiveSquareBox(x+len/2, y, len/2);
+	// 	// recursiveSquareBox(x+len/4, y-len/2, len/2);
+	// }
+	// else 
+	// {
+	// 	fill(255, 255, 255);
+	// 	strokeWeight(1);
+	// 	rect(x, y, len, len);
+	// }
+
+	// if (len < detail)
+	// {
+
+	// }
+	// else 
+	// {
+	// 	fill(255, 255, 255);
+	// 	strokeWeight(1);
+	// 	rect(x, y, len, len);
+	// 	recursiveSquareBox(x+len/4, y+len/4, len/2);
+	// }
+
+
+	len = len/2;
+	x = x + len/4;
+	y = y + len/4;
+
+	fill(255, 255, 255);
+	strokeWeight(1);
+	rect(x, y, len, len);
 	if (len > detail)
 	{
-		sierpinski(x, y, len/2);
-		sierpinski(x+len/2, y, len/2);
-		sierpinski(x+len/4, y-len/2, len/2);
-	}
-	else 
-	{
-		strokeWeight(1);
-		triangle(x, y, x+len/2, y-len, x+len, y);
+		recursiveSquareBox(x, y, len);
 	}
 }
   static public void main(String[] passedArgs) {
