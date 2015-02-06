@@ -16,29 +16,44 @@ public class OriginalFractal extends PApplet {
 
 //drawing parameters
 public int detail = 30; //makes fractal more 'detailed' by recursive func
-public int sizeSier = detail*10;
+public int sizeFractal = detail*15;
 
 
 public void setup()
 {
 	background(100, 5);
-	size(sizeSier+sizeSier/4, sizeSier+sizeSier/4); //fits the fractal
+	size(sizeFractal, sizeFractal); //fits the fractal
 }
 
 public int count = 5;
 public void draw()
 {
-	recursiveSquareBox(sizeSier/8, sizeSier/8, sizeSier);
+	background(100, 5);
+	recursiveSquareBox(0, 0, sizeFractal);
 }
 
 public void mouseMoved() 
 {
-	// sizeSier++;
+	sizeFractal += 5;
 	// detail = mouseX;
 }
 
 public void recursiveSquareBox(int x, int y, int len) //recursive func to draw recursiveSquareBox
 {
+	fill(100, 20);
+	strokeWeight(1);
+	rect(x, y, len, len);
+
+	x = x + len/4;
+	y = y + len/4;
+	len = len/2;
+
+	if (len > detail)
+	{
+		recursiveSquareBox(x, y, len);
+	}
+
+	/* method 1 */
 	// if (len > detail)
 	// {
 	// 	recursiveSquareBox(x+len/4, y+len/4, len/2);
@@ -52,6 +67,7 @@ public void recursiveSquareBox(int x, int y, int len) //recursive func to draw r
 	// 	rect(x, y, len, len);
 	// }
 
+	/* method 2 */
 	// if (len < detail)
 	// {
 
@@ -63,19 +79,6 @@ public void recursiveSquareBox(int x, int y, int len) //recursive func to draw r
 	// 	rect(x, y, len, len);
 	// 	recursiveSquareBox(x+len/4, y+len/4, len/2);
 	// }
-
-
-	len = len/2;
-	x = x + len/4;
-	y = y + len/4;
-
-	fill(255, 255, 255);
-	strokeWeight(1);
-	rect(x, y, len, len);
-	if (len > detail)
-	{
-		recursiveSquareBox(x, y, len);
-	}
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "OriginalFractal" };
