@@ -9,32 +9,42 @@ public void setup()
 	size(sizeFractal, sizeFractal); //fits the fractal
 }
 
-public int count = 5;
+public int count = 0;
 public void draw()
 {
 	background(100, 5);
-	recursiveSquareBox(0, 0, sizeFractal);
+	recursiveSquareBox(width/2, height/2, sizeFractal, count); 
+	sizeFractal += 10;
+	count++;
+
+	//resets sizeFractal to conserve memory
+	if (sizeFractal >= 2*width)
+	{
+		sizeFractal = detail*15;
+	}
+
+	println("count: "+count);
 }
 
-public void mouseMoved() 
+public void mouseClicked() //reset when clicked
 {
-	sizeFractal += 5;
-	// detail = mouseX;
+	sizeFractal = detail*15;
 }
 
-public void recursiveSquareBox(int x, int y, int len) //recursive func to draw recursiveSquareBox
+public void recursiveSquareBox(int x, int y, int len, int colorChange) //recursive func to draw recursiveSquareBox
 {
-	fill(100, 20);
+	int colorNew = (int)(sin(colorChange)*255);
+	fill(colorNew, colorNew, colorNew); //fill color changes periodically
 	strokeWeight(1);
-	rect(x, y, len, len);
-
-	x = x + len/4;
-	y = y + len/4;
+	rect(x-len/2, y-len/2, len, len); //draws square centered with h/w of len
 	len = len/2;
 
+	println("colorNew: "+colorNew);
+
+	// recursive call
 	if (len > detail)
 	{
-		recursiveSquareBox(x, y, len);
+		recursiveSquareBox(x, y, len, colorNew);
 	}
 
 	/* method 1 */
